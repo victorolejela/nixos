@@ -136,6 +136,7 @@
     yad
     bc
     fuzzel
+    burpsuite
     swaynotificationcenter
     cava
     chromium
