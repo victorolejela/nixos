@@ -128,6 +128,7 @@
     starship
     zoxide
     eza
+    discord
     swww
     anyrun
     wlogout
@@ -140,6 +141,8 @@
     chromium
     brightnessctl
     wireplumber
+    blueberry
+    pavucontrol
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
