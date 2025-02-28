@@ -1,15 +1,15 @@
  { config, pkgs, ... }:
-{
+ {
   imports = [
-    ./hardware-configuration.nix
+   ./hardware-configuration.nix
   ];
 
   # Bootloader.
   #boot.loader.systemd-boot.enable = true;
   #boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.loader = {
-    efi = {
+   boot.loader = {
+      efi = {
       canTouchEfiVariables = true;
       efiSysMountPoint = "/boot";
     };
@@ -144,6 +144,7 @@
     wireplumber
     blueberry
     pavucontrol
+    bibata-cursors
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
