@@ -120,6 +120,7 @@
     vscode
     python312Full
     spotify
+    wireplumber
     vim
     git
     htop
@@ -136,7 +137,7 @@
     jq
     yad
     bc
-    fuzzel
+    fuzzel	
     burpsuite
     swaynotificationcenter
     cava
@@ -146,9 +147,11 @@
     blueberry
     pavucontrol
     bibata-cursors
+    xorg.xev
+    wev
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
+  # Some programs nesed SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
   # programs.gnupg.agent = {
@@ -173,5 +176,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   system.stateVersion = "24.11"; # Did you read the comment?
 }
