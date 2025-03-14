@@ -30,6 +30,12 @@
 
   users.defaultUserShell = pkgs.fish;
 
+  virtualisation = {
+    podman = {
+      enable = true;
+    };
+  };
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -76,6 +82,16 @@
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
+
+  security = {
+    wrappers.dumpcap = {
+      source = "${pkgs.wireshark}/bin/dumpcap";
+      capabilities = "cap_net_raw,cap_net_admin+ep";
+      owner = "root";
+      group = "wireshark";
+    };
+  };
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -96,10 +112,13 @@
   users.users.victor = {
     isNormalUser = true;
     description = "Victor";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "wireshark" ];
     packages = with pkgs; [
     #  thunderbird
     ];
+  };
+  users.groups = {
+    wireshark = {};
   };
 
   fonts.packages = with pkgs; [
@@ -111,12 +130,20 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  services = {
+    mysql = {
+      enable = true;
+      package = pkgs.mariadb;
+    };
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     git
+    gcc
     vscode
     python312Full
     spotify
@@ -130,11 +157,14 @@
     starship
     zoxide
     eza
-    discord
+    networkmanagerapplet
     swww
     anyrun
     wlogout
+    protonvpn-gui
     jq
+    telegram-desktop
+    libnotify
     yad
     bc
     fuzzel	
@@ -149,6 +179,44 @@
     bibata-cursors
     xorg.xev
     wev
+    distrobox
+    wireshark
+
+    # snacks.image
+      imagemagick # required to render images
+      mermaid-cli
+      tectonic
+      ghostscript_headless
+
+      gnumake
+      ripgrep
+      fd
+
+      alejandra
+      black
+      golangci-lint
+      gopls
+      gotools
+      hadolint
+      isort
+      lua-language-server
+      markdownlint-cli
+      nixd
+
+      prettierd
+      nodePackages.bash-language-server
+      nodePackages.prettier
+      nodePackages.typescript
+      nodePackages.typescript-language-server
+      pyright
+      ruff
+      shellcheck
+      shfmt
+      stylua
+      terraform-ls
+      tflint
+      vscode-langservers-extracted
+      yaml-language-server
   ];
 
   # Some programs nesed SUID wrappers, can be configured further or are
